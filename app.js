@@ -65,25 +65,39 @@ form.addEventListener('submit', event => {
 });
 updatePrices();
 
-// Three branches reveal progressively as the section passes through the viewport.
+// Each branch and its card reveal in a separate scroll interval.
 const aboutSection = document.querySelector('.about-section');
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const aboutTrack = document.querySelector('.about-scroll');
+const reasons = [...document.querySelectorAll('.reason')];
+const branches = [...document.querySelectorAll('.branch')];
 let scrollFrame = 0;
 function revealConnections() {
   scrollFrame = 0;
-  const box = aboutSection.getBoundingClientRect();
-  const progress = Math.max(0, Math.min(1, (innerHeight * .85 - box.top) / (box.height * .72)));
-  aboutSection.querySelectorAll('.branch').forEach((branch, index) => {
-    const local = Math.max(0, Math.min(1, (progress - index * .18) / .36));
+  if (reduceMotion.matches) { aboutSection.classList.remove('is-animated'); return; }
+  aboutSection.classList.add('is-animated');
+  if (innerWidth <= 900) {
+    reasons.forEach((card, index) => {
+      const revealed = card.getBoundingClientRect().top < innerHeight * .82;
+      card.style.setProperty('--reveal', revealed ? 1 : 0);
+      branches[index].style.setProperty('--draw', revealed ? 0 : 1);
+    });
+    return;
+  }
+  const box = aboutTrack.getBoundingClientRect();
+  const travel = Math.max(1, aboutTrack.offsetHeight - document.querySelector('.about-composition').offsetHeight);
+  const progress = Math.max(0, Math.min(1, (55 - box.top) / travel));
+  branches.forEach((branch, index) => {
+    const local = Math.max(0, Math.min(1, (progress - index * .33) / .22));
     branch.style.setProperty('--draw', 1 - local);
-    aboutSection.querySelectorAll('.reason')[index].style.setProperty('--reveal', Math.max(0, Math.min(1, (local - .35) / .65)));
+    reasons[index].style.setProperty('--reveal', Math.max(0, Math.min(1, (local - .65) / .35)));
   });
 }
-if (aboutSection && !reduceMotion.matches) {
-  aboutSection.classList.add('is-animated');
-  const scheduleReveal = () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(revealConnections); };
-  addEventListener('scroll', scheduleReveal, { passive: true });
-  addEventListener('resize', scheduleReveal);
-  revealConnections();
+if (aboutSection) {
+ const scheduleReveal = () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(revealConnections); };
+ addEventListener('scroll', scheduleReveal, { passive: true });
+ addEventListener('resize', scheduleReveal);
+ reduceMotion.addEventListener('change', scheduleReveal);
+ revealConnections();
 }
 nav.querySelectorAll('a[href="#sobre-a-bruna"]').forEach(link => link.addEventListener('click', closeMenu));
