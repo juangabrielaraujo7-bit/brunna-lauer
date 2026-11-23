@@ -64,3 +64,26 @@ form.addEventListener('submit', event => {
   dialog.showModal();
 });
 updatePrices();
+
+// Three branches reveal progressively as the section passes through the viewport.
+const aboutSection = document.querySelector('.about-section');
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let scrollFrame = 0;
+function revealConnections() {
+  scrollFrame = 0;
+  const box = aboutSection.getBoundingClientRect();
+  const progress = Math.max(0, Math.min(1, (innerHeight * .85 - box.top) / (box.height * .72)));
+  aboutSection.querySelectorAll('.branch').forEach((branch, index) => {
+    const local = Math.max(0, Math.min(1, (progress - index * .18) / .36));
+    branch.style.setProperty('--draw', 1 - local);
+    aboutSection.querySelectorAll('.reason')[index].style.setProperty('--reveal', Math.max(0, Math.min(1, (local - .35) / .65)));
+  });
+}
+if (aboutSection && !reduceMotion.matches) {
+  aboutSection.classList.add('is-animated');
+  const scheduleReveal = () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(revealConnections); };
+  addEventListener('scroll', scheduleReveal, { passive: true });
+  addEventListener('resize', scheduleReveal);
+  revealConnections();
+}
+nav.querySelectorAll('a[href="#sobre-a-bruna"]').forEach(link => link.addEventListener('click', closeMenu));
