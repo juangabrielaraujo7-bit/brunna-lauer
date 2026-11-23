@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f2">
+  <meta name="description" content="Encontre seu próximo lar em Sorocaba com Bruna Lauer. Imóveis para comprar ou alugar e atendimento próximo para ajudar na sua escolha.">
+  <title>Bruna Lauer | Imóveis em Sorocaba</title>
+  <link rel="icon" href="assets/simbolo.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/hero-original.png" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#busca">Ir para a busca de imóveis</a>
+  <header class="header">
+    <a class="brand" href="./" aria-label="Bruna Lauer — página inicial"><img src="assets/simbolo.svg" width="43" height="55" alt=""><span>Bruna Lauer</span></a>
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <nav id="navigation" aria-label="Navegação principal">
+      <a href="#busca" data-purpose="comprar">Comprar</a>
+      <a href="#busca" data-purpose="alugar">Alugar</a>
+      <button type="button" data-dialog="about">Sobre a Bruna</button>
+      <button type="button" class="outline-button" data-dialog="owner">Anunciar imóvel</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-photo" aria-hidden="true"><img src="assets/hero-original.png" alt="" width="736" height="491" fetchpriority="high"></div>
+      <div class="hero-container">
+        <div class="search-card" id="busca">
+          <div class="intent-switch" aria-label="O que você procura?">
+            <button type="button" class="selected" aria-pressed="true" id="search-intent">Buscar imóveis</button>
+            <button type="button" aria-pressed="false" data-dialog="owner">Anunciar imóvel</button>
+          </div>
+          <h1 id="hero-title">Encontre um lar<br>para chamar de seu</h1>
+          <form id="property-search">
+            <fieldset class="purpose"><legend class="sr-only">Finalidade do imóvel</legend>
+              <label><input type="radio" name="finalidade" value="comprar" checked><span>Comprar</span></label>
+              <label><input type="radio" name="finalidade" value="alugar"><span>Alugar</span></label>
+            </fieldset>
+            <div class="fields">
+              <label class="field"><svg class="emerald" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span><span class="field-label">Cidade</span><input name="cidade" value="Sorocaba, SP" readonly aria-label="Cidade: Sorocaba, SP"></span></label>
+              <label class="field"><svg class="emerald" viewBox="0 0 24 24" aria-hidden="true"><path d="m2 11 10-9 10 9M5 9v13h14V9M9 22V12h6v10"/></svg><span><span class="field-label">Bairro</span><input name="bairro" placeholder="Busque por bairro" autocomplete="off" maxlength="100"></span></label>
+              <div class="field-row">
+                <label class="field select-field"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2zM5 8h1m12 8h1"/><circle cx="12" cy="12" r="3"/></svg><span><span class="field-label">Valor total até</span><select name="valor" aria-label="Valor total até"><option value="">Selecione</option></select></span></label>
+                <label class="field select-field"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4v17M3 16h19v5M3 11h19v5M11 11V7h7a4 4 0 0 1 4 4"/><circle cx="7" cy="8" r="2"/></svg><span><span class="field-label">Quartos</span><select name="quartos" aria-label="Número de quartos"><option value="">Selecione</option><option value="1">1 ou mais</option><option value="2">2 ou mais</option><option value="3">3 ou mais</option><option value="4">4 ou mais</option></select></span></label>
+              </div>
+            </div>
+            <button class="search-button" type="submit">Buscar imóveis</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <dialog id="contact-dialog" aria-labelledby="dialog-title">
+    <button type="button" class="close-dialog" aria-label="Fechar">×</button>
+    <h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="search-summary" hidden></p>
+    <a class="contact-button" href="https://www.instagram.com/brunalauerimoveis/" target="_blank" rel="noopener noreferrer">Falar com a Bruna no Instagram</a>
+  </dialog>
+</body>
+</html>
