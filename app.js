@@ -17,11 +17,17 @@ function closeMenu() { nav.classList.remove('open'); menu.setAttribute('aria-exp
 function openDialog(kind) {
   summary.hidden = true;
   if (kind === 'about') {
-    title.textContent = 'Conheça a Bruna Lauer';
-    description.textContent = 'Corretora de imóveis em Sorocaba. Para morar ou investir, conte com a Bruna para conversar sobre o que você procura.';
+    title.textContent = 'Conhe�a a Bruna Lauer';
+    description.textContent = 'Corretora de im�veis em Sorocaba. Para morar ou investir, conte com a Bruna para conversar sobre o que voc� procura.';
+  } else if (kind === 'why') {
+    title.textContent = 'Por que escolher a Bruna?';
+    description.textContent = 'Converse diretamente com a corretora, conte o que procura em Sorocaba e combine uma visita para conhecer o im�vel de perto.';
+  } else if (kind === 'help') {
+    title.textContent = 'Como podemos ajudar?';
+    description.textContent = 'Use os filtros para informar o perfil de im�vel que procura. Para tirar d�vidas, anunciar um im�vel ou agendar uma visita, fale com a Bruna.';
   } else {
-    title.textContent = 'Seu imóvel, novos planos.';
-    description.textContent = 'Quer vender ou alugar seu imóvel em Sorocaba? Converse com a Bruna e conheça o trabalho dela.';
+    title.textContent = 'Seu im�vel, novos planos.';
+    description.textContent = 'Quer vender ou alugar seu im�vel em Sorocaba? Converse com a Bruna e conhe�a o trabalho dela.';
   }
   closeMenu();
   dialog.showModal();
@@ -47,11 +53,11 @@ dialog.addEventListener('click', event => {
 form.addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(form);
-  title.textContent = data.get('finalidade') === 'alugar' ? 'Vamos encontrar seu próximo aluguel?' : 'Vamos encontrar seu próximo lar?';
-  description.textContent = 'Converse com a Bruna para conferir imóveis disponíveis com o perfil que você procura.';
+  title.textContent = data.get('finalidade') === 'alugar' ? 'Vamos encontrar seu pr�ximo aluguel?' : 'Vamos encontrar seu pr�ximo lar?';
+  description.textContent = 'Converse com a Bruna para conferir im�veis dispon�veis com o perfil que voc� procura.';
   const lines = ['Sorocaba, SP'];
   if (data.get('bairro').trim()) lines.push('Bairro: ' + data.get('bairro').trim());
-  if (data.get('valor')) lines.push('Valor até: ' + currency.format(Number(data.get('valor'))));
+  if (data.get('valor')) lines.push('Valor at�: ' + currency.format(Number(data.get('valor'))));
   if (data.get('quartos')) lines.push('Quartos: ' + data.get('quartos') + ' ou mais');
   summary.textContent = lines.join('\n');
   summary.hidden = false;
